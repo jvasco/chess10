@@ -48,8 +48,6 @@ public class Chess {
 		char finalFile = positions[1].charAt(0);
 		char finalRank = positions[1].charAt(1);
 		
-		Piece piece = 
-		
 	}
 
 }
