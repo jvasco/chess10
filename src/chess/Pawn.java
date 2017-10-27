@@ -55,13 +55,13 @@ public class Pawn extends Piece {
 			if (firstMove && finalRank - initRank != 1 || finalRank - initRank != 2) {
 				return false;
 			}
-			if (board[finalFile][finalRank] != null && board[finalFile][finalRank].isWhite()) {
+			if (board[finalFile][finalRank] != null && !board[finalFile][finalRank].isWhite()) {
 				return false;
 			}
-			if (!board[finalFile][finalRank].isWhite() && Math.abs(finalFile - initFile) != 1) {
+			if (board[finalFile][finalRank].isWhite() && Math.abs(finalFile - initFile) != 1) {
 				return false;
 			}
-			if (board[finalFile][finalRank].isWhite()) {
+			if (!board[finalFile][finalRank].isWhite()) {
 				return false;
 			}
 			if (finalFile != initFile) {
