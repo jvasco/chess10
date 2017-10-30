@@ -3,6 +3,11 @@ package chess;
 public class Pawn extends Piece {
 	public Pawn(boolean isWhite) {
 		super(isWhite);
+		if(isWhite){
+			name = "wp";
+		}else{
+			name = "bp";
+		}
 		// TODO Auto-generated constructor stub
 	}
 

@@ -5,6 +5,11 @@ public class Bishop extends Piece{
 	boolean isWhite;
 	public Bishop(boolean isWhite) {
 		super(isWhite);
+		if(isWhite){
+			name = "wB";
+		}else{
+			name = "bB";
+		}
 		// TODO Auto-generated constructor stub
 	}
 	boolean isValidMove(Piece[][] board, String move)

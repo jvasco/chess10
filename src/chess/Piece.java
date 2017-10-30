@@ -4,6 +4,7 @@ public class Piece {
 
 	boolean white;
 	boolean firstMove;
+	String name;
 	
 	public Piece(boolean isWhite)
 	{
@@ -15,6 +16,10 @@ public class Piece {
 	public boolean isWhite()
 	{
 		return this.white;
+	}
+	
+	public String getName(){
+		return this.name;
 	}
 	 
 }

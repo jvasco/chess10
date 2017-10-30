@@ -6,6 +6,11 @@ public class Rook extends Piece {
 
 	public Rook(boolean isWhite) {
 		super(isWhite);
+		if(isWhite){
+			name = "wR";
+		}else{
+			name = "bR";
+		}
 	}
 
 	boolean isValidMove(Piece[][] board, String move) {

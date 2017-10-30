@@ -4,6 +4,11 @@ public class Queen extends Piece {
 
 	public Queen(boolean isWhite) {
 		super(isWhite);
+		if(isWhite){
+			name = "wQ";
+		}else{
+			name = "bQ";
+		}
 	}
 		boolean isValidMove(Piece[][] board, String move)
 		{
