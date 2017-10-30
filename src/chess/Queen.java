@@ -3,16 +3,17 @@ package chess;
 public class Queen extends Piece {
 
 	public Queen(boolean isWhite) {
-		super(isWhite);
+		super();
 		if(isWhite){
 			name = "wQ";
 		}else{
 			name = "bQ";
 		}
+
 	}
-		boolean isValidMove(Piece[][] board, String move)
+		public boolean isValidMove(Piece[][] board, String move)
 		{
-			String[] positions = move.split(" ");
+			String[] positions = move.split("\\s");
 			char initFileChar = positions[0].charAt(0);
 			char initRankChar = positions[0].charAt(1);
 			char finalFileChar = positions[1].charAt(0);
@@ -99,5 +100,10 @@ public class Queen extends Piece {
 		return true;
 			
 	}
+		@Override
+		public String getName() {
+			// TODO Auto-generated method stub
+			return name;
+		}
 
 }

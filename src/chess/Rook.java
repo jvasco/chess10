@@ -5,16 +5,17 @@ public class Rook extends Piece {
 	boolean isWhite;
 
 	public Rook(boolean isWhite) {
-		super(isWhite);
+		super();
 		if(isWhite){
 			name = "wR";
 		}else{
 			name = "bR";
 		}
+
 	}
 
-	boolean isValidMove(Piece[][] board, String move) {
-		String[] positions = move.split(" ");
+	public boolean isValidMove(Piece[][] board, String move) {
+		String[] positions = move.split("\\s");
 		char initFileChar = positions[0].charAt(0);
 		char initRankChar = positions[0].charAt(1);
 		char finalFileChar = positions[1].charAt(0);
@@ -59,6 +60,12 @@ public class Rook extends Piece {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
 	}
 
 }
