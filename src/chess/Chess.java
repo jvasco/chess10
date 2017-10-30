@@ -6,6 +6,7 @@ public class Chess {
 	
 	static int turn;
 	static String bKpos, wKpos;
+	static Piece[][]emptyBoard = new Piece[8][8];
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -51,23 +52,39 @@ public class Chess {
 		boolean drawOffer = false;
 		String move;
 		turn = 1;	//white's move if turn = -1
+		String drawMove = "";
+		
+		printBoard(chessBoard);
 		
 		while(game){
 			turn *= -1;
+			
+			if(turn==-1){
+				System.out.print("White's move: ");
+			}else{
+				System.out.print("Black's move: ");
+			}
 			input = new Scanner(System.in);
 			move = input.nextLine();
+			System.out.println();
 			
 			//draw
 			if(move.length() == 11 && move.substring(6).equals("draw?")){
 				drawOffer = true;
+				drawMove = move.substring(0,5);
 				continue;
 			}
 			if(move.equals("draw") && drawOffer){
 				System.out.println("draw");
+				drawOffer = false;
 				break;
 			}
 			
-			drawOffer = false;
+			if(drawOffer){
+				turn *= -1;
+				move = drawMove;
+				drawOffer = false;
+			}
 			
 			//resign
 			if(turn==-1){
@@ -75,15 +92,13 @@ public class Chess {
 					System.out.println("Black wins");
 					break;
 				}
-				System.out.print("White's move: ");
 			}else{
 				if(move.equals("resign")){
 					System.out.println("White wins");
 					break;
 				}
-				System.out.print("Black's move: ");
 			}
-			System.out.println(move + "\n");
+			//System.out.println(move + "\n");
 			
 			//check
 			if(ifCheck(chessBoard)){
@@ -110,7 +125,11 @@ public class Chess {
 			}
 			
 			//System.out.println(getPos(7,4));
-			
+			int f1 = 8 - Character.getNumericValue(move.charAt(1));
+			int r1 = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
+			//if(chessBoard[f1][r1].isValidMove(chessBoard,move)){
+				chessBoard = updateBoard(chessBoard, move);
+			//}
 			printBoard(chessBoard);
 		}
 	}
@@ -134,7 +153,7 @@ public class Chess {
 			}
 			System.out.println(rank-- + " ");
 		}
-		System.out.println(" a  b  c  d  e  f  g  h");
+		System.out.println(" a  b  c  d  e  f  g  h " + "\n");
 	}
 	
 	public static String getPos(int file, int rank){
@@ -168,9 +187,21 @@ public class Chess {
 		}
 		return false;
 	}
-	
-	public static void updateBoard(Piece[][]board, String move){
+	//a1 = 7,0 a 2 = 6,0
+	public static Piece[][] updateBoard(Piece[][]board, String move){
 		
+		int f1 = 8 - Character.getNumericValue(move.charAt(1));
+		int r1 = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
+		int f2 = 8 - Character.getNumericValue(move.charAt(4));
+		int r2 = (int) Character.toLowerCase(move.charAt(3)) - (int) ('a');
+		
+		Piece temp = board[f1][r1];
+		board[f1][r1]=null;
+		board[f2][r2]=temp;
+		
+		System.out.println("" + f1 +" " + r1 + " "+ f2+ " " + r2);
+		
+		return board;
 	}
 
 }
