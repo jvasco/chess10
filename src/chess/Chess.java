@@ -12,22 +12,21 @@ public class Chess {
 		// TODO Auto-generated method stub
 		// create chess board
 		Piece[][] chessBoard = new Piece[8][8];
-		
-		for(int i = 0; i < 8; i++)
-		{
-			for(int j = 0; j < 8; j++){
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
 				chessBoard[i][j] = null;
 			}
 		}
-		
+
 		for (int i = 0; i < 8; i++) {
 			chessBoard[6][i] = new Pawn(true);
 
 		}
 		for (int i = 0; i < 8; i++) {
 			chessBoard[1][i] = new Pawn(false);
-		} 
-		
+		}
+
 		chessBoard[0][0] = new Rook(false);
 		chessBoard[0][7] = new Rook(false);
 		chessBoard[7][0] = new Rook(true);
@@ -64,7 +63,9 @@ public class Chess {
 
 		while (game) {
 			turn *= -1;
-
+			
+			
+			
 			if (turn == -1) {
 				System.out.print("White's move: ");
 			} else {
@@ -73,41 +74,75 @@ public class Chess {
 			input = new Scanner(System.in);
 			move = input.nextLine();
 			System.out.println();
+			while (!isValidInput(move)) {
+				System.out.println("Invalid input");
+				move = input.nextLine();
+				System.out.println();
+			}
+			
+			// draw
+			if (move.length() == 11 && move.substring(6).equals("draw?")) {
+				drawOffer = true;
+				
+				//move = move.substring(0, 6);
+				continue;
+			}
+			if (move.equals("draw") && drawOffer) {
+				System.out.println("draw");
+				break;
+			}
 
+			drawOffer = false;
 
-			/*String[] positions = move.split("\\s");
-			char initFileChar = positions[0].charAt(0);
-			char initRankChar = positions[0].charAt(1);
-			char finalFileChar = positions[1].charAt(0);
-			char finalRankChar = positions[1].charAt(1);
-			int initFile = (int) Character.toLowerCase(initFileChar) - (int) ('a');
-			int initRank = (int) Character.getNumericValue(initRankChar) - 1;
-			int finalFile = (int) Character.toLowerCase(finalFileChar) - (int) ('a');
-			int finalRank = (int) Character.getNumericValue(finalRankChar) - 1;
-			*/
+			// resign
+			if (turn == -1) {
+				if (move.equals("resign")) {
+					System.out.println("Black wins");
+					break;
+				}
+				System.out.print("White's move: ");
+			} else {
+				if (move.equals("resign")) {
+					System.out.println("White wins");
+					break;
+				}
+				System.out.print("Black's move: ");
+			}
+			System.out.println(move + "\n");
+			
+			/*
+			 * String[] positions = move.split("\\s"); char initFileChar =
+			 * positions[0].charAt(0); char initRankChar =
+			 * positions[0].charAt(1); char finalFileChar =
+			 * positions[1].charAt(0); char finalRankChar =
+			 * positions[1].charAt(1); int initFile = (int)
+			 * Character.toLowerCase(initFileChar) - (int) ('a'); int initRank =
+			 * (int) Character.getNumericValue(initRankChar) - 1; int finalFile
+			 * = (int) Character.toLowerCase(finalFileChar) - (int) ('a'); int
+			 * finalRank = (int) Character.getNumericValue(finalRankChar) - 1;
+			 */
 			int f1 = 8 - Character.getNumericValue(move.charAt(1));
 			int r1 = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
-			
+
 			Piece piece = chessBoard[f1][r1];
-			
-		
 
 			while (piece == null || !piece.isValidMove(chessBoard, move) || isMyKingInCheck(chessBoard)) {
-				System.out.println("Illegal move, try again.");
+				System.out.println("Illegal move, try again." + "\n");
 				if (turn == -1) {
-					System.out.println("White's move: ");
+					System.out.print("White's move: ");
 				} else {
-					System.out.println("Black's move: ");
+					System.out.print("Black's move: ");
 				}
 				move = input.nextLine();
 				System.out.println();
 				f1 = 8 - Character.getNumericValue(move.charAt(1));
 				r1 = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
-				
+
 				piece = chessBoard[f1][r1];
 
 			}
 			System.out.println("Slected piece is: " + chessBoard[f1][r1].getName());
+			
 			// draw
 			if (move.length() == 11 && move.substring(6).equals("draw?")) {
 				drawOffer = true;
@@ -120,13 +155,13 @@ public class Chess {
 				drawOffer = false;
 				break;
 			}
-
+/*
 			if (drawOffer) {
 				turn *= -1;
 				move = drawMove;
 				drawOffer = false;
 			}
-
+*/
 			// resign
 			if (turn == -1) {
 				if (move.equals("resign")) {
@@ -142,40 +177,47 @@ public class Chess {
 			// System.out.println(move + "\n");
 
 			// check
-			
 
 			// checkmate
-			/* if (turn == -1) {
-				// if(isValidMove){
-				if (move.substring(3).equals(bKpos)) {
-					System.out.println("Checkmate");
-					System.out.println("White wins");
-					break;
-				}
-				// }
-			} else {
-				// if(isValidMove){
-				if (move.substring(3).equals(wKpos)) {
-					System.out.println("Checkmate");
-					System.out.println("Black wins");
-					break;
-				}
-				// }
-			}
-			*/
+			/*
+			 * if (turn == -1) { // if(isValidMove){ if
+			 * (move.substring(3).equals(bKpos)) {
+			 * System.out.println("Checkmate");
+			 * System.out.println("White wins"); break; } // } } else { //
+			 * if(isValidMove){ if (move.substring(3).equals(wKpos)) {
+			 * System.out.println("Checkmate");
+			 * System.out.println("Black wins"); break; } // } }
+			 */
 			// System.out.println(getPos(7,4));
-			
-			if(chessBoard[f1][r1].isValidMove(chessBoard,move)){
-			chessBoard = updateBoard(chessBoard, move);
+
+			if (chessBoard[f1][r1].isValidMove(chessBoard, move)) {
+				chessBoard = updateBoard(chessBoard, move);
 			}
-			System.out.println("Checking");
-			
+
 			if (ifCheck(chessBoard)) {
-				
+
 				System.out.println("Check");
 			}
 			printBoard(chessBoard);
 		}
+	}
+
+	public static boolean isValidInput(String move) {
+		// TODO Auto-generated method stub
+		if (move.length() == 11 && move.substring(6).equals("draw?")) {
+			return true;
+		}
+
+		if (move.equals("draw")) {
+			return true;
+		}
+		if (move.equals("resign")) {
+			return true;
+		}
+		if (move.matches("[abcdefgh][12345678] [abcdefgh][12345678]")) {
+			return true;
+		}
+		return false;
 	}
 
 	public static void printBoard(Piece[][] board) {
@@ -214,23 +256,18 @@ public class Chess {
 				if (board[i][j] == null) {
 					continue;
 				}
-				if(board[i][j].getName().equals("bQ"))
-				{
-					System.out.println("CHECKING BLACK QUeen at " + i + " " + j);
-					
-				}
 				String pos = getPos(i, j);
 				String move;
 				if (turn == -1 && board[i][j].isWhite()) {
 					// white's turn
 					move = pos + " " + bKpos;
-					
+
 					if (board[i][j].isValidMove(board, move)) {
 						return true;
 					}
 
 				} else if (turn == 1 && !board[i][j].isWhite()) {
-					//black's turn
+					// black's turn
 					move = pos + " " + wKpos;
 					if (board[i][j].isValidMove(board, move)) {
 						return true;
