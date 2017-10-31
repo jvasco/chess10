@@ -142,11 +142,7 @@ public class Chess {
 			// System.out.println(move + "\n");
 
 			// check
-			System.out.println("Checking");
-			if (ifCheck(chessBoard)) {
-				
-				System.out.println("Check");
-			}
+			
 
 			// checkmate
 			/* if (turn == -1) {
@@ -171,6 +167,12 @@ public class Chess {
 			
 			if(chessBoard[f1][r1].isValidMove(chessBoard,move)){
 			chessBoard = updateBoard(chessBoard, move);
+			}
+			System.out.println("Checking");
+			
+			if (ifCheck(chessBoard)) {
+				
+				System.out.println("Check");
 			}
 			printBoard(chessBoard);
 		}
