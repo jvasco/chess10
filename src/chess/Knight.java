@@ -1,44 +1,53 @@
 package chess;
 
-public class Knight extends Piece{
+public class Knight extends Piece {
 
 	public Knight(boolean isWhite) {
-		super();
-		if(isWhite){
+		super(isWhite);
+		if (isWhite) {
 			name = "wN";
-		}else{
+		} else {
 			name = "bN";
 		}
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
-	public boolean isValidMove(Piece[][] board, String move)
-	{
-		String[] positions = move.split("\\s");
-		char initFileChar = positions[0].charAt(0);
-		char initRankChar = positions[0].charAt(1);
-		char finalFileChar = positions[1].charAt(0);
-		char finalRankChar = positions[1].charAt(1);
-		int initFile = (int) Character.toLowerCase(initFileChar) - (int)('a');
-		int initRank = (int) Character.toLowerCase(initRankChar) - (int)('a');
-		int finalFile = (int) Character.toLowerCase(finalFileChar) - (int)('a');
-		int finalRank = (int) Character.toLowerCase(finalRankChar) - (int)('a');
+	public boolean isValidMove(Piece[][] board, String move) {
+		int initFile = 8 - Character.getNumericValue(move.charAt(1));
+		int initRank = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
+		int finalFile = 8 - Character.getNumericValue(move.charAt(4));
+		int finalRank = (int) Character.toLowerCase(move.charAt(3)) - (int) ('a');
+
+		if (finalFile < 0 || finalFile > 7 || finalRank < 0 || finalFile > 7) {
+			return false;
+		}
+
+		if (Math.abs(finalFile - initFile) == 1 && Math.abs(finalRank - initRank) == 2) {
+			if (board[finalFile][finalRank] == null) 
+			{
+				return true;
+			} 
+			else if (board[finalFile][finalRank].isWhite() != this.isWhite()) 
+			{
+				return true;
+			}
+		} 
 		
-		if(Math.abs(finalFile - initFile) == 1 && Math.abs(finalRank - initRank) == 2)
-		{
-			return true;
+		else if (Math.abs(finalFile - initFile) == 2 && Math.abs(finalRank - initRank) == 1) {
+			if (board[finalFile][finalRank] == null) 
+			{
+				return true;
+			} 
+			else if (board[finalFile][finalRank].isWhite() != this.isWhite()) 
+			{
+				return true;
+			}
 		}
-		else if(Math.abs(finalFile - initFile) == 2 && Math.abs(finalRank - initRank) == 1)
-		{
-			return true;
-		}
-		if(this.isWhite() != board[finalFile][finalRank].isWhite())
-		{
-			return true;
-		}
+
+
 		return false;
-		
+
 	}
 
 	@Override

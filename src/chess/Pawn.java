@@ -2,10 +2,10 @@ package chess;
 
 public class Pawn extends Piece {
 	public Pawn(boolean isWhite) {
-		super();
-		if(isWhite){
+		super(isWhite);
+		if (isWhite) {
 			name = "wp";
-		}else{
+		} else {
 			name = "bp";
 		}
 		// TODO Auto-generated constructor stub
@@ -13,84 +13,81 @@ public class Pawn extends Piece {
 
 	boolean white;
 	String color;
-	boolean firstMove;
-	
-	void setFirstMove()
-	{
-		if(white)
-		{
-			
+	boolean firstMove = true;
+
+	void setFirstMove() {
+		if (white) {
+
 		}
 	}
+
 	@Override
 	public boolean isValidMove(Piece[][] board, String move) {
-		
-		String[] positions = move.split("\\s");
-		char initFileChar = positions[0].charAt(0);
-		char initRankChar = positions[0].charAt(1);
-		char finalFileChar = positions[1].charAt(0);
-		char finalRankChar = positions[1].charAt(1);
-		int initFile = (int) Character.toLowerCase(initFileChar) - (int)('a');
-		int initRank = (int) Character.toLowerCase(initRankChar) - (int)('a');
-		int finalFile = (int) Character.toLowerCase(finalFileChar) - (int)('a');
-		int finalRank = (int) Character.toLowerCase(finalRankChar) - (int)('a');
-		
-		if (white) {
-			System.out.println("FSDFSDFJSFKDSNKJDFS");
-			if (!firstMove && finalRank - initRank != 1) // if it is not the first move the pawn can only move up one space
+
+		//this makes them coordinate to coordinates on the array
+		int initFile = 8 - Character.getNumericValue(move.charAt(1));
+		int initRank = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
+		int finalFile = 8 - Character.getNumericValue(move.charAt(4));
+		int finalRank = (int) Character.toLowerCase(move.charAt(3)) - (int) ('a');
+
+		/*
+		 * String[] positions = move.split("\\s"); char initFileChar =
+		 * positions[0].charAt(0); char initRankChar = positions[0].charAt(1);
+		 * char finalFileChar = positions[1].charAt(0); char finalRankChar =
+		 * positions[1].charAt(1); int initFile = (int)
+		 * Character.toLowerCase(initFileChar) - (int)('a'); int initRank =
+		 * (int) Character.toLowerCase(initRankChar) - (int)('a'); int finalFile
+		 * = (int) Character.toLowerCase(finalFileChar) - (int)('a'); int
+		 * finalRank = (int) Character.toLowerCase(finalRankChar) - (int)('a');
+		 */
+
+		if (finalFile < 0 || finalFile > 7 || finalRank < 0 || finalFile > 7) {
+			return false;
+		}
+
+		if (isWhite()) {
+			if (firstMove && finalFile - initFile == -2 && finalRank - initRank == 0
+					&& board[finalFile][finalRank] == null) {
+				return true;
+			}
+			if (finalFile - initFile == -1 && finalRank - initRank == 0 
+					&& board[finalFile][finalRank] == null
+					) {
+				return true;
+			}
+
+			if (finalFile - initFile == -1 && 
+					Math.abs(finalRank - initRank) == 1 &&
+					board[finalFile][finalRank] != null
+					&& this.isWhite() != board[finalFile][finalRank].isWhite()) {
+				return true;
+			}
+			
+
+		} else {
+
+			if (firstMove && finalFile - initFile == 2 && finalRank - initRank == 0 && board[finalFile][finalRank] == null) 
 			{
-				return false;
+				return true;
 			}
-			if (firstMove && finalRank - initRank != 1 || finalRank - initRank != 2) {
-			
-				return false;
+
+			if (finalFile - initFile == 1 && finalRank - initRank == 0 && board[finalFile][finalRank] == null){
+				return true;
 			}
-			if (board[finalFile][finalRank] != null && board[finalFile][finalRank].isWhite()) {
-				
-				return false;
+			if (finalFile - initFile == 1 && 
+					Math.abs(finalRank - initRank) == 1
+					&& board[finalFile][finalRank] != null && 
+					this.isWhite() != board[finalFile][finalRank].isWhite()) {
+				// killing a piece
+				return true;
 			}
-			
-			if (!board[finalFile][finalRank].isWhite() && Math.abs(finalFile - initFile) != 1) {
-				
-				return false;
-			}
-		//no further than here	
-			if (board[finalFile][finalRank].isWhite()) {
-				
-				return false;
-			}
-			
-			if (finalFile != initFile) {
-				return false;
-			}
+
 			
 		}
-		else {
-			
-			if (!firstMove && finalRank - initRank != 1) // if it is not the first move the pawn can only move up one space
-			{
-				return false;
-			}
-			if (firstMove && finalRank - initRank != 1 || finalRank - initRank != 2) {
-				return false;
-			}
-			if (board[finalFile][finalRank] != null && !board[finalFile][finalRank].isWhite()) {
-				return false;
-			}
-			if (board[finalFile][finalRank].isWhite() && Math.abs(finalFile - initFile) != 1) {
-				return false;
-			}
-			if (!board[finalFile][finalRank].isWhite()) {
-				return false;
-			}
-			if (finalFile != initFile) {
-				return false;
-			}
-		}
-		
-		
-		return true;
+
+		return false;
 	}
+
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub

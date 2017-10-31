@@ -3,7 +3,7 @@ package chess;
 public class King extends Piece{
 
 	public King(boolean isWhite) {
-		super();
+		super(isWhite);
 		if(isWhite){
 			name = "wK";
 		}else{
@@ -14,15 +14,24 @@ public class King extends Piece{
 	}
 	public boolean isValidMove(Piece[][] board, String move)
 	{
-		String[] positions = move.split("\\s");
-		char initFileChar = positions[0].charAt(0);
-		char initRankChar = positions[0].charAt(1);
-		char finalFileChar = positions[1].charAt(0);
-		char finalRankChar = positions[1].charAt(1);
-		int initFile = (int) Character.toLowerCase(initFileChar) - (int)('a');
-		int initRank = (int) Character.toLowerCase(initRankChar) - (int)('a');
-		int finalFile = (int) Character.toLowerCase(finalFileChar) - (int)('a');
-		int finalRank = (int) Character.toLowerCase(finalRankChar) - (int)('a');
+		int initFile = 8 - Character.getNumericValue(move.charAt(1));
+		int initRank = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
+		int finalFile = 8 - Character.getNumericValue(move.charAt(4));
+		int finalRank = (int) Character.toLowerCase(move.charAt(3)) - (int) ('a');
+		
+		if(finalFile < 0 || finalFile > 7 || finalRank < 0 || finalFile > 7)
+		{
+			return false;
+		}
+		
+		if(Math.abs(finalRank - initRank) == 0 && Math.abs(finalFile - initFile) == 1)
+		{
+			return true;
+		}
+		if(Math.abs(finalRank - initRank) == 1 && (Math.abs(finalFile - initFile) == 1 || Math.abs(finalFile - initFile) == 0) )
+		{
+			return true;
+		}
 		
 		return false;
 		//if(finalRank - initRank == )

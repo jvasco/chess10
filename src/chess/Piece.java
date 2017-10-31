@@ -5,6 +5,10 @@ public abstract class Piece {
 	boolean white;
 	boolean firstMove;
 	String name;
+	public Piece(boolean white)
+	{
+		this.white = white;
+	}
 	
 	public boolean isFirstMove(){
 		return this.firstMove;
@@ -19,6 +23,6 @@ public abstract class Piece {
 		this.white = white;
 	}
 	public abstract String getName();
-	public abstract boolean isValidMove(Piece[][] board, String move);
+	public abstract  boolean isValidMove(Piece[][] board, String move);
 	
 }

@@ -5,27 +5,28 @@ public class Rook extends Piece {
 	boolean isWhite;
 
 	public Rook(boolean isWhite) {
-		super();
+		super(isWhite);
 		if(isWhite){
 			name = "wR";
 		}else{
 			name = "bR";
 		}
-
 	}
 
 	public boolean isValidMove(Piece[][] board, String move) {
-		String[] positions = move.split("\\s");
-		char initFileChar = positions[0].charAt(0);
-		char initRankChar = positions[0].charAt(1);
-		char finalFileChar = positions[1].charAt(0);
-		char finalRankChar = positions[1].charAt(1);
-		int initFile = (int) Character.toLowerCase(initFileChar) - (int) ('a');
-		int initRank = (int) Character.toLowerCase(initRankChar) - (int) ('a');
-		int finalFile = (int) Character.toLowerCase(finalFileChar) - (int) ('a');
-		int finalRank = (int) Character.toLowerCase(finalRankChar) - (int) ('a');
+		
+		int initFile = 8 - Character.getNumericValue(move.charAt(1));
+		int initRank = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
+		int finalFile = 8 - Character.getNumericValue(move.charAt(4));
+		int finalRank = (int) Character.toLowerCase(move.charAt(3)) - (int) ('a');
+		
+		if(finalFile < 0 || finalFile > 7 || finalRank < 0 || finalFile > 7)
+		{
+			return false;
+		}
 
 		if (initFile == finalFile) {
+			//horizontally
 			if (initRank < finalRank) {
 				for (int i = initRank; i < finalRank; i++) {
 					if (board[initFile][i] != null) {
@@ -42,10 +43,20 @@ public class Rook extends Piece {
 
 		} 
 		else if (initRank == finalRank) {
-			if (initRank < finalRank) {
-				for (int i = initRank; i < finalRank; i++) {
+			//vertically
+			if (initFile < finalFile) {
+				for (int i = initFile; i < finalFile; i++) {
 					if (board[i][finalRank] != null) {
 						// there's a piece in the way
+						return false;
+					}
+				}
+			}
+			else
+			{
+				for (int i = initFile; i > finalFile; i--)
+				{
+					if(board[i][finalFile] != null) {
 						return false;
 					}
 				}
@@ -55,11 +66,11 @@ public class Rook extends Piece {
 		{
 			return false;
 		}
-		if (board[finalFile][finalRank].isWhite() == this.isWhite) {
+		if (board[finalFile][finalRank] == null || board[finalFile][finalRank].isWhite() != this.isWhite()) {
 			//same color so can't eat the other piece
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	@Override
