@@ -1,7 +1,8 @@
 package chess;
 
 /**
- * @authors Jordy Vasco and Nicholas Lelchitsky
+ * @author Jordy Vasco
+ * @author Nicholas Lelchitsky
  * 
  */
 

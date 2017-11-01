@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * @authors Jordy Vasco and Nicholas Lelchitsky
+ * @author Jordy Vasco
+ * @author Nicholas Lelchitsky
  * 
  */
 
