@@ -13,6 +13,7 @@ public class Bishop extends Piece {
 			name = "bB";
 		}
 		// TODO Auto-generated constructor stub
+		hasMoved = true;
 	}
 
 	public boolean isValidMove(Piece[][] board, String move) {

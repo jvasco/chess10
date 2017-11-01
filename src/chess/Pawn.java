@@ -9,6 +9,7 @@ public class Pawn extends Piece {
 			name = "bp";
 		}
 		// TODO Auto-generated constructor stub
+		hasMoved = true;
 	}
 
 	boolean white;

@@ -10,6 +10,7 @@ public class Knight extends Piece {
 			name = "bN";
 		}
 		// TODO Auto-generated constructor stub
+		hasMoved = true;
 	}
 
 	@Override

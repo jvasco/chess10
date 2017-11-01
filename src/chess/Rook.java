@@ -45,7 +45,6 @@ public class Rook extends Piece {
 		} 
 		else if (initRank == finalRank) {
 			//vertically
-			System.out.println("wtf");
 			if (initFile < finalFile) {
 				for (int i = initFile + 1; i < finalFile; i++) {
 					if (board[i][finalRank] != null) {

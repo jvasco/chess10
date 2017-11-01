@@ -9,7 +9,7 @@ public class Queen extends Piece {
 		} else {
 			name = "bQ";
 		}
-
+hasMoved = true;
 	}
 
 	public boolean isValidMove(Piece[][] board, String move) {
@@ -71,7 +71,6 @@ public class Queen extends Piece {
 				}
 			} else {
 				for (int i = initRank - 1; i > finalRank; i--) {
-					System.out.println("Well i did");
 					if (board[initFile][i] != null) {
 						return false;
 					}
@@ -83,7 +82,6 @@ public class Queen extends Piece {
 			if (initFile < finalFile) {
 				
 				for (int i = initFile + 1; i < finalFile; i++) {
-					System.out.println("Well i did");
 					if (board[i][finalRank] != null) {
 						// there's a piece in the way
 						return false;
