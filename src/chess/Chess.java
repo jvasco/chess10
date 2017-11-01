@@ -20,6 +20,10 @@ public class Chess {
 
 	public static void main(String[] args) {
 		boolean inCheck = false;
+		
+		/**
+		 * initialize board with all pieces
+		 */
 		Piece[][] chessBoard = new Piece[8][8];
 
 		for (int i = 0; i < 8; i++) {
@@ -66,11 +70,13 @@ public class Chess {
 		boolean drawOffer = false;
 		String move;
 		turn = 1; 
-
+		
 		printBoard(chessBoard);
 
 		while (game) {
-
+			/**
+			 * game begins with white's move first (turn == -1 is white, turn == 1 is black)
+			 */
 			turn *= -1;
 			if (turn == -1) {
 				System.out.print("White's move: ");
@@ -80,14 +86,18 @@ public class Chess {
 			input = new Scanner(System.in);
 			move = input.nextLine();
 			System.out.println();
-
+			/**
+			 * checks if input is valid
+			 */
 			while (!isValidInput(move)) {
 				System.out.println("Invalid input");
 				move = input.nextLine();
 				System.out.println();
 			}
 
-			// draw
+			/**
+			 * checks if player 1 offers a draw, then player 2 can accept
+			 */
 			if (move.length() == 11 && move.substring(6).equals("draw?")) {
 				drawOffer = true;
 				move = move.substring(0, 5);
@@ -98,7 +108,9 @@ public class Chess {
 				drawOffer = false;
 			}
 
-			// resign
+			/**
+			 * checks if player resigns
+			 */
 			if (turn == -1) {
 				if (move.equals("resign")) {
 					System.out.println("Black wins");
@@ -123,7 +135,9 @@ public class Chess {
 					temp[i][j] = chessBoard[i][j];
 				}
 			}
-
+			/**
+			 * checks if input move is a valid move, prompts try again if not
+			 */
 			while (piece == null || !piece.isValidMove(chessBoard, move) || (turn == -1 && !piece.isWhite())
 					|| (turn == 1 && piece.isWhite())) {
 
@@ -142,7 +156,9 @@ public class Chess {
 
 				piece = chessBoard[f1][r1];
 			}
-
+			/**
+			 * checks if current players king is in check
+			 */
 			while (isMyKingInCheck(temp, move)) {
 				System.out.println("Illegal move, try again." + "\n");
 				if (turn == -1) {
@@ -158,10 +174,14 @@ public class Chess {
 					}
 				}
 			}
-
+			/**
+			 * once move is deemed valid, all special piece moves are checked
+			 */
 			if (chessBoard[f1][r1].isValidMove(chessBoard, move)) {
 
-				// enpassant
+				/**
+				 * checks if a pawn can be captured in en passant
+				 */
 
 				if (!enp) {
 					if (chessBoard[f1][r1] != null && chessBoard[f1][r1].getName().equals("wp") && f1 == 6 && f2 == 4) {
@@ -183,7 +203,9 @@ public class Chess {
 					enp = false;
 				}
 
-				// castling
+				/**
+				 * checks if king's move can castle and updates board accordingly
+				 */
 				if (chessBoard[f1][r1].getName().equals("wK") && !chessBoard[f1][r1].hasMoved) {
 					if (f2 == 7 && r2 == 6) {
 						if (!chessBoard[7][7].hasMoved) {
@@ -216,7 +238,9 @@ public class Chess {
 					chessBoard[f1][r1].hasMoved = true;
 				}
 
-				// update king pos
+				/**
+				 * updates kings' positions and if they have moved their first move
+				 */
 				if (chessBoard[f1][r1].getName().equals("wK")) {
 					chessBoard[f1][r1].hasMoved = true;
 					wKpos = getPos(f2, r2);
@@ -225,7 +249,9 @@ public class Chess {
 					bKpos = getPos(f2, r2);
 				}
 
-				// pawn promotion
+				/**
+				 * checks input for specific pawn promotion and applies it if valid, queen by default
+				 */
 				if (chessBoard[f1][r1].getName().equals("wp") && f2 == 0) {
 					if (move.length() == 7) {
 						char c = move.charAt(6);
@@ -266,7 +292,9 @@ public class Chess {
 			}
 
 			printBoard(chessBoard);
-			// check
+			/**
+			 * checks if other player is in check after current move and then also checks for checkmate, which may end the game accordingly
+			 */
 			if (turn == -1) {
 				bCheck = ifCheck(chessBoard);
 				if (bCheck) {
@@ -297,7 +325,11 @@ public class Chess {
 			System.out.println();
 		}
 	}
-
+	/**
+	 * checks if the input move is valid
+	 * @param move
+	 * @return true if it is valid
+	 */
 	public static boolean isValidInput(String move) {
 		if (move.length() == 11 && move.substring(6).equals("draw?")) {
 			return true;
@@ -317,7 +349,10 @@ public class Chess {
 		}
 		return false;
 	}
-
+	/**
+	 * prints the ASCII board
+	 * @param board
+	 */
 	public static void printBoard(Piece[][] board) {
 		int c = 1;
 		int rank = 8;
@@ -339,7 +374,12 @@ public class Chess {
 		}
 		System.out.println(" a  b  c  d  e  f  g  h " + "\n");
 	}
-
+	/**
+	 * converts array coordinates to file and rank string format
+	 * @param file
+	 * @param rank
+	 * @return position as string e.g. "a2"
+	 */
 	public static String getPos(int file, int rank) {
 		char x = 'a';
 		x += rank;
@@ -347,7 +387,11 @@ public class Chess {
 		return "" + x + y;
 
 	}
-
+	/**
+	 * checks if the board has a checkmate
+	 * @param board
+	 * @return true if a checkmate is detected
+	 */
 	public static boolean isCheckmate(Piece[][] board){
 		int f1,r1;
 		String move;
@@ -523,7 +567,11 @@ public class Chess {
 		
 		return true;
 	}
-
+	/**
+	 * checks if the board if the current player is in check
+	 * @param board
+	 * @return true if a check is detected
+	 */
 	public static boolean ifCheck(Piece[][] board) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -548,7 +596,12 @@ public class Chess {
 		}
 		return false;
 	}
-
+	/**
+	 * updates the board to reflect the current valid move that was made
+	 * @param board
+	 * @param move string in file and rank format "e2 e3"
+	 * @return updated board
+	 */
 	public static Piece[][] updateBoard(Piece[][] board, String move) {
 
 		int f1 = 8 - Character.getNumericValue(move.charAt(1));
@@ -563,7 +616,12 @@ public class Chess {
 
 		return board;
 	}
-
+	/**
+	 * checks if current players king is in check
+	 * @param board
+	 * @param mov
+	 * @return
+	 */
 	public static boolean isMyKingInCheck(Piece[][] board, String mov) {
 
 		String tempWK = wKpos;
@@ -591,14 +649,13 @@ public class Chess {
 				String move;
 
 				if (turn == -1 && !board[i][j].isWhite()) {
-					// white's turn, attacking piece is black
 
 					move = pos + " " + tempWK;
 					if (board[i][j].isValidMove(board, move)) {
 						return true;
 					}
 				} else if (turn == 1 && board[i][j].isWhite()) {
-					// blacks turn
+
 					move = pos + " " + tempBK;
 					if (board[i][j].isValidMove(board, move)) {
 						return true;

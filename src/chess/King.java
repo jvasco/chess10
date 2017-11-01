@@ -27,7 +27,9 @@ public class King extends Piece {
 		if (finalFile < 0 || finalFile > 7 || finalRank < 0 || finalFile > 7) {
 			return false;
 		}
-
+		/**
+		 * checks if king to be moved can castle with adjacent rook
+		 */
 		if (Math.abs(finalRank - initRank) == 2 && board[finalFile][finalRank + 1] != null
 				&& !board[initFile][initRank].hasMoved && !board[finalFile][finalRank + 1].hasMoved
 				&& board[finalFile][finalRank + 1].getName().charAt(1) == 'R' && finalFile == initFile) {
