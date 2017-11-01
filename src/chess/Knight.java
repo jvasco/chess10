@@ -50,10 +50,5 @@ public class Knight extends Piece {
 
 	}
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return name;
-	}
 
 }

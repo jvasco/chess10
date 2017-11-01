@@ -7,6 +7,10 @@ public class Chess {
 	static int turn;
 	static String bKpos, wKpos;
 	static boolean enp = false;
+	static int fe = 0;
+	static int re = 0;
+	static boolean wCheck = false;
+	static boolean bCheck = false;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -32,18 +36,18 @@ public class Chess {
 		chessBoard[7][0] = new Rook(true);
 		chessBoard[7][7] = new Rook(true);
 
-		chessBoard[0][1] = new Knight(false);
-		chessBoard[0][6] = new Knight(false);
-		chessBoard[7][1] = new Knight(true);
-		chessBoard[7][6] = new Knight(true);
+		//chessBoard[0][1] = new Knight(false);
+		//chessBoard[0][6] = new Knight(false);
+		//chessBoard[7][1] = new Knight(true);
+		//chessBoard[7][6] = new Knight(true);
 
-		chessBoard[0][2] = new Bishop(false);
-		chessBoard[0][5] = new Bishop(false);
-		chessBoard[7][2] = new Bishop(true);
-		chessBoard[7][5] = new Bishop(true);
+		//chessBoard[0][2] = new Bishop(false);
+		//chessBoard[0][5] = new Bishop(false);
+		//chessBoard[7][2] = new Bishop(true);
+		//chessBoard[7][5] = new Bishop(true);
 
-		chessBoard[0][3] = new Queen(false);
-		chessBoard[7][3] = new Queen(true);
+		//chessBoard[0][3] = new Queen(false);
+		//chessBoard[7][3] = new Queen(true);
 
 		chessBoard[0][4] = new King(false);
 		bKpos = "e8";
@@ -101,6 +105,7 @@ public class Chess {
 				}
 			}
 			//System.out.println(move + "\n");
+			//System.out.println(chessBoard[3][0] == null);
 			
 			int f1 = 8 - Character.getNumericValue(move.charAt(1));
 			int r1 = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
@@ -135,8 +140,6 @@ public class Chess {
 				}
 				
 				//enpassant
-				int fe = 0;
-				int re = 0;
 				if(!enp){
 					if(chessBoard[f1][r1].getName().equals("wp") && f1 == 6 && f2 == 4){
 						enp = true;
@@ -154,6 +157,39 @@ public class Chess {
 						chessBoard[fe][re] = null;
 					}
 					enp = false;
+				}
+				
+				//castling
+				if(chessBoard[f1][r1].getName().equals("wK") && !chessBoard[f1][r1].hasMoved){
+					if(f2 == 7 && r2 == 6){
+						if(!chessBoard[7][7].hasMoved){
+							chessBoard[7][7].hasMoved = true;
+							chessBoard[7][5] = chessBoard[7][7];
+							chessBoard[7][7] = null;
+						}
+					}else if(f2 == 7 && r2 == 2){
+						if(!chessBoard[7][0].hasMoved){
+							chessBoard[7][0].hasMoved = true;
+							chessBoard[7][3] = chessBoard[7][0];
+							chessBoard[7][0] = null;
+						}
+					}
+					chessBoard[f1][r1].hasMoved = true;
+				}else if(chessBoard[f1][r1].getName().equals("bK") && !chessBoard[f1][r1].hasMoved){
+					if(f2 == 0 && r2 == 6){
+						if(!chessBoard[0][7].hasMoved){
+							chessBoard[0][7].hasMoved = true;
+							chessBoard[0][5] = chessBoard[0][7];
+							chessBoard[0][7] = null;
+						}
+					}else if(f2 == 0 && r2 == 2){
+						if(!chessBoard[0][0].hasMoved){
+							chessBoard[0][0].hasMoved = true;
+							chessBoard[0][3] = chessBoard[0][0];
+							chessBoard[0][0] = null;
+						}
+					}
+					chessBoard[f1][r1].hasMoved = true;
 				}
 					
 				//pawn promotion
@@ -196,9 +232,18 @@ public class Chess {
 			}
 			
 			//check
-			if (ifCheck(chessBoard)) {
-				System.out.println("Check");
+			if(turn == -1 ){
+				bCheck = ifCheck(chessBoard);
+				if (bCheck){
+					System.out.println("Check");
+				}
+			}else{
+				wCheck = ifCheck(chessBoard);
+				if (wCheck){
+					System.out.println("Check");
+				}
 			}
+			
 			printBoard(chessBoard);
 		}
 	}
@@ -216,6 +261,9 @@ public class Chess {
 			return true;
 		}
 		if (move.matches("[abcdefgh][12345678] [abcdefgh][12345678]")) {
+			return true;
+		}
+		if (move.matches("[abcdefgh][12345678] [abcdefgh][12345678] [BNRQp]")) {
 			return true;
 		}
 		return false;
@@ -250,6 +298,24 @@ public class Chess {
 		return "" + x + y;
 
 	}
+	
+	public static boolean isCheckmate(Piece[][] board){
+		int f1,r1;
+		String move;
+		
+		if(turn == -1 && bCheck){
+			f1 = 8 - Character.getNumericValue(bKpos.charAt(1));
+			r1 = (int) Character.toLowerCase(bKpos.charAt(0)) - (int) ('a');
+			
+			
+		}else if(turn == 1 && wCheck){
+			f1 = 8 - Character.getNumericValue(wKpos.charAt(1));
+			r1 = (int) Character.toLowerCase(wKpos.charAt(0)) - (int) ('a');
+			
+		}
+		
+		return false;
+	}
 
 	public static boolean ifCheck(Piece[][] board) {
 		for (int i = 0; i < board.length; i++) {
@@ -262,7 +328,6 @@ public class Chess {
 				if (turn == -1 && board[i][j].isWhite()) {
 					// white's turn
 					move = pos + " " + bKpos;
-
 					if (board[i][j].isValidMove(board, move)) {
 						return true;
 					}
