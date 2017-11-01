@@ -1,5 +1,10 @@
 package chess;
 
+/**
+ * @authors Jordy Vasco and Nicholas Lelchitsky
+ * 
+ */
+
 public class Pawn extends Piece {
 	public Pawn(boolean isWhite) {
 		super(isWhite);
@@ -8,7 +13,6 @@ public class Pawn extends Piece {
 		} else {
 			name = "bp";
 		}
-		// TODO Auto-generated constructor stub
 		hasMoved = true;
 	}
 
@@ -20,22 +24,10 @@ public class Pawn extends Piece {
 	@Override
 	public boolean isValidMove(Piece[][] board, String move) {
 
-		//this makes them coordinate to coordinates on the array
 		int initFile = 8 - Character.getNumericValue(move.charAt(1));
 		int initRank = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
 		int finalFile = 8 - Character.getNumericValue(move.charAt(4));
 		int finalRank = (int) Character.toLowerCase(move.charAt(3)) - (int) ('a');
-
-		/*
-		 * String[] positions = move.split("\\s"); char initFileChar =
-		 * positions[0].charAt(0); char initRankChar = positions[0].charAt(1);
-		 * char finalFileChar = positions[1].charAt(0); char finalRankChar =
-		 * positions[1].charAt(1); int initFile = (int)
-		 * Character.toLowerCase(initFileChar) - (int)('a'); int initRank =
-		 * (int) Character.toLowerCase(initRankChar) - (int)('a'); int finalFile
-		 * = (int) Character.toLowerCase(finalFileChar) - (int)('a'); int
-		 * finalRank = (int) Character.toLowerCase(finalRankChar) - (int)('a');
-		 */
 
 		if (finalFile < 0 || finalFile > 7 || finalRank < 0 || finalFile > 7) {
 			return false;
@@ -89,7 +81,6 @@ public class Pawn extends Piece {
 					Math.abs(finalRank - initRank) == 1
 					&& board[finalFile][finalRank] != null && 
 					this.isWhite() != board[finalFile][finalRank].isWhite()) {
-				// killing a piece
 				return true;
 			}
 

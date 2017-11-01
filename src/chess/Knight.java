@@ -1,5 +1,10 @@
 package chess;
 
+/**
+ * @authors Jordy Vasco and Nicholas Lelchitsky
+ * 
+ */
+
 public class Knight extends Piece {
 
 	public Knight(boolean isWhite) {
@@ -9,7 +14,6 @@ public class Knight extends Piece {
 		} else {
 			name = "bN";
 		}
-		// TODO Auto-generated constructor stub
 		hasMoved = true;
 	}
 

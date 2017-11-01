@@ -1,5 +1,10 @@
 package chess;
 
+/**
+ * @authors Jordy Vasco and Nicholas Lelchitsky
+ * 
+ */
+
 public class Bishop extends Piece {
 
 	boolean isWhite;
@@ -12,12 +17,10 @@ public class Bishop extends Piece {
 		} else {
 			name = "bB";
 		}
-		// TODO Auto-generated constructor stub
 		hasMoved = true;
 	}
 
 	public boolean isValidMove(Piece[][] board, String move) {
-		// COORDINATES TO COORDINATES ON ARRAY
 		int initFile = 8 - Character.getNumericValue(move.charAt(1));
 		int initRank = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
 		int finalFile = 8 - Character.getNumericValue(move.charAt(4));

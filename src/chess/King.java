@@ -1,5 +1,10 @@
 package chess;
 
+/**
+ * @authors Jordy Vasco and Nicholas Lelchitsky
+ * 
+ */
+
 public class King extends Piece {
 
 	public King(boolean isWhite) {
@@ -11,7 +16,6 @@ public class King extends Piece {
 		}
 		hasMoved = false;
 
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean isValidMove(Piece[][] board, String move) {
@@ -56,7 +60,6 @@ public class King extends Piece {
 
 		return false;
 
-		// if(finalRank - initRank == )
 	}
 
 }

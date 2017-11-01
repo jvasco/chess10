@@ -1,5 +1,10 @@
 package chess;
 
+/**
+ * @authors Jordy Vasco and Nicholas Lelchitsky
+ * 
+ */
+
 public abstract class Piece {
 
 	boolean white;
@@ -24,7 +29,6 @@ public abstract class Piece {
 		this.white = white;
 	}
 	public String getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 	

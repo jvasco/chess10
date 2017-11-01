@@ -1,5 +1,10 @@
 package chess;
 
+/**
+ * @authors Jordy Vasco and Nicholas Lelchitsky
+ * 
+ */
+
 public class Queen extends Piece {
 
 	public Queen(boolean isWhite) {
@@ -9,7 +14,7 @@ public class Queen extends Piece {
 		} else {
 			name = "bQ";
 		}
-hasMoved = true;
+		hasMoved = true;
 	}
 
 	public boolean isValidMove(Piece[][] board, String move) {
@@ -56,16 +61,15 @@ hasMoved = true;
 			if (board[finalFile][finalRank] == null || this.isWhite() != board[finalFile][finalRank].isWhite()) {
 				return true;
 			}
-		} 
-		
+		}
+
 		else if (initFile == finalFile) {
 
-			// horizontally
 			if (initRank < finalRank) {
 				for (int i = initRank + 1; i < finalRank; i++) {
-					
+
 					if (board[initFile][i] != null) {
-						
+
 						return false;
 					}
 				}
@@ -78,16 +82,15 @@ hasMoved = true;
 			}
 
 		} else if (initRank == finalRank) {
-			// vertically
 			if (initFile < finalFile) {
-				
+
 				for (int i = initFile + 1; i < finalFile; i++) {
 					if (board[i][finalRank] != null) {
 						// there's a piece in the way
 						return false;
 					}
 				}
-			} else //initFile > finalFile
+			} else 
 			{
 				for (int i = initFile - 1; i > finalFile; i--) {
 					if (board[i][finalRank] != null) {
@@ -103,7 +106,5 @@ hasMoved = true;
 		}
 		return false;
 	}
-
-	
 
 }

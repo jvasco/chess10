@@ -3,6 +3,11 @@ package chess;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * @authors Jordy Vasco and Nicholas Lelchitsky
+ * 
+ */
+
 public class Chess {
 
 	static int turn;
@@ -14,8 +19,6 @@ public class Chess {
 	static boolean bCheck = false;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		// create chess board
 		boolean inCheck = false;
 		Piece[][] chessBoard = new Piece[8][8];
 
@@ -62,7 +65,7 @@ public class Chess {
 		boolean game = true;
 		boolean drawOffer = false;
 		String move;
-		turn = 1; // white's move if turn = -1
+		turn = 1; 
 
 		printBoard(chessBoard);
 
@@ -107,7 +110,6 @@ public class Chess {
 					break;
 				}
 			}
-			// System.out.println(move + "\n");
 
 			int f1 = 8 - Character.getNumericValue(move.charAt(1));
 			int r1 = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');
@@ -140,8 +142,6 @@ public class Chess {
 
 				piece = chessBoard[f1][r1];
 			}
-			// System.out.println("Slected piece is: " +
-			// chessBoard[f1][r1].getName());
 
 			while (isMyKingInCheck(temp, move)) {
 				System.out.println("Illegal move, try again." + "\n");
@@ -158,38 +158,6 @@ public class Chess {
 					}
 				}
 			}
-			/*
-			 * Piece[][] temp = chessBoard; chessBoard = updateBoard(chessBoard,
-			 * move); while(isMyKingInCheck(chessBoard)) {
-			 * 
-			 * System.out.println("Illegal move, try again." + "\n"); if (turn
-			 * == -1) { System.out.print("White's move: "); } else {
-			 * System.out.print("Black's move: "); } move = input.nextLine();
-			 * System.out.println(); f1 = 8 -
-			 * Character.getNumericValue(move.charAt(1)); r1 = (int)
-			 * Character.toLowerCase(move.charAt(0)) - (int) ('a'); piece =
-			 * chessBoard[f1][r1];
-			 * 
-			 * } chessBoard = temp;
-			 */
-			// System.out.println("Slected piece " + f1 + r1 + " is: " +
-			// chessBoard[f1][r1].getName());
-
-			// System.out.println(move + "\n");
-
-			// check
-
-			// checkmate
-			/*
-			 * if (turn == -1) { // if(isValidMove){ if
-			 * (move.substring(3).equals(bKpos)) {
-			 * System.out.println("Checkmate");
-			 * System.out.println("White wins"); break; } // } } else { //
-			 * if(isValidMove){ if (move.substring(3).equals(wKpos)) {
-			 * System.out.println("Checkmate");
-			 * System.out.println("Black wins"); break; } // } }
-			 */
-			// System.out.println(getPos(7,4));
 
 			if (chessBoard[f1][r1].isValidMove(chessBoard, move)) {
 
@@ -331,7 +299,6 @@ public class Chess {
 	}
 
 	public static boolean isValidInput(String move) {
-		// TODO Auto-generated method stub
 		if (move.length() == 11 && move.substring(6).equals("draw?")) {
 			return true;
 		}
@@ -566,14 +533,12 @@ public class Chess {
 				String pos = getPos(i, j);
 				String move;
 				if (turn == -1 && board[i][j].isWhite()) {
-					// white's turn
 					move = pos + " " + bKpos;
 					if (board[i][j].isValidMove(board, move)) {
 						return true;
 					}
 
 				} else if (turn == 1 && !board[i][j].isWhite()) {
-					// black's turn
 					move = pos + " " + wKpos;
 					if (board[i][j].isValidMove(board, move)) {
 						return true;
@@ -584,7 +549,6 @@ public class Chess {
 		return false;
 	}
 
-	// a1 = 7,0 a 2 = 6,0
 	public static Piece[][] updateBoard(Piece[][] board, String move) {
 
 		int f1 = 8 - Character.getNumericValue(move.charAt(1));
@@ -596,14 +560,12 @@ public class Chess {
 		board[f1][r1] = null;
 		board[f2][r2] = temp;
 
-		// System.out.println("" + f1 + " " + r1 + " " + f2 + " " + r2);
 
 		return board;
 	}
 
 	public static boolean isMyKingInCheck(Piece[][] board, String mov) {
 
-		// mov
 		String tempWK = wKpos;
 		String tempBK = bKpos;
 

@@ -1,5 +1,10 @@
 package chess;
 
+/**
+ * @authors Jordy Vasco and Nicholas Lelchitsky
+ * 
+ */
+
 public class Rook extends Piece {
 
 	boolean isWhite;
@@ -27,7 +32,6 @@ public class Rook extends Piece {
 		}
 
 		if (initFile == finalFile) {
-			//horizontally
 			if (initRank < finalRank) {
 				for (int i = initRank + 1; i < finalRank; i++) {
 					if (board[initFile][i] != null) {
@@ -48,7 +52,6 @@ public class Rook extends Piece {
 			if (initFile < finalFile) {
 				for (int i = initFile + 1; i < finalFile; i++) {
 					if (board[i][finalRank] != null) {
-						// there's a piece in the way
 						return false;
 					}
 				}
@@ -69,7 +72,6 @@ public class Rook extends Piece {
 			return false;
 		}
 		if (board[finalFile][finalRank] == null || board[finalFile][finalRank].isWhite() != this.isWhite()) {
-			//same color so can't eat the other piece
 			this.hasMoved = true;
 			return true;
 		}
