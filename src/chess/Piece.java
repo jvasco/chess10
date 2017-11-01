@@ -5,6 +5,7 @@ public abstract class Piece {
 	boolean white;
 	boolean firstMove;
 	String name;
+	boolean hasMoved;
 	public Piece(boolean white)
 	{
 		this.white = white;
@@ -22,7 +23,11 @@ public abstract class Piece {
 	{
 		this.white = white;
 	}
-	public abstract String getName();
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+	
 	public abstract  boolean isValidMove(Piece[][] board, String move);
 	
 }

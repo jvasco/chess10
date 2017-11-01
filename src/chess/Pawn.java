@@ -15,11 +15,6 @@ public class Pawn extends Piece {
 	String color;
 	boolean firstMove = true;
 
-	void setFirstMove() {
-		if (white) {
-
-		}
-	}
 
 	@Override
 	public boolean isValidMove(Piece[][] board, String move) {
@@ -44,10 +39,18 @@ public class Pawn extends Piece {
 		if (finalFile < 0 || finalFile > 7 || finalRank < 0 || finalFile > 7) {
 			return false;
 		}
-
+		
+		
 		if (isWhite()) {
+			
+			if(Chess.getEnp()==true && finalFile == Chess.fe - 1 && finalRank == Chess.re)
+			{
+				return true;
+			}
 			if (firstMove && finalFile - initFile == -2 && finalRank - initRank == 0
-					&& board[finalFile][finalRank] == null) {
+					&& board[finalFile][finalRank] == null
+					&& board[initFile - 1][initRank] == null
+					&& initFile == 6) {
 				return true;
 			}
 			if (finalFile - initFile == -1 && finalRank - initRank == 0 
@@ -61,12 +64,19 @@ public class Pawn extends Piece {
 					board[finalFile][finalRank] != null
 					&& this.isWhite() != board[finalFile][finalRank].isWhite()) {
 				return true;
+				
 			}
 			
 
 		} else {
 
-			if (firstMove && finalFile - initFile == 2 && finalRank - initRank == 0 && board[finalFile][finalRank] == null) 
+			if(Chess.enp == true && finalFile == Chess.fe + 1 && finalRank == Chess.re)
+			{
+				return true;
+			}
+			if (firstMove && finalFile - initFile == 2 && finalRank - initRank == 0 
+					&& board[finalFile][finalRank] == null
+					&& initFile == 1) 
 			{
 				return true;
 			}
@@ -88,10 +98,5 @@ public class Pawn extends Piece {
 		return false;
 	}
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return name;
-	}
 
 }

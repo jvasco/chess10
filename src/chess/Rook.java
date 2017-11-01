@@ -11,6 +11,7 @@ public class Rook extends Piece {
 		}else{
 			name = "bR";
 		}
+		hasMoved = false;
 	}
 
 	public boolean isValidMove(Piece[][] board, String move) {
@@ -70,15 +71,11 @@ public class Rook extends Piece {
 		}
 		if (board[finalFile][finalRank] == null || board[finalFile][finalRank].isWhite() != this.isWhite()) {
 			//same color so can't eat the other piece
+			this.hasMoved = true;
 			return true;
 		}
 		return false;
 	}
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return name;
-	}
 
 }
