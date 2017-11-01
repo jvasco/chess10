@@ -28,11 +28,11 @@ public class King extends Piece{
 		{
 			return true;
 		}
+		
 		if(Math.abs(finalRank - initRank) == 1 && (Math.abs(finalFile - initFile) == 1 || Math.abs(finalFile - initFile) == 0) )
 		{
 			return true;
 		}
-		
 		return false;
 		//if(finalRank - initRank == )
 	}

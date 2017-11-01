@@ -59,10 +59,10 @@ public class Queen extends Piece {
 		} 
 		
 		else if (initFile == finalFile) {
-			
+
 			// horizontally
 			if (initRank < finalRank) {
-				for (int i = initRank; i < finalRank; i++) {
+				for (int i = initRank + 1; i < finalRank; i++) {
 					
 					if (board[initFile][i] != null) {
 						
@@ -70,7 +70,7 @@ public class Queen extends Piece {
 					}
 				}
 			} else {
-				for (int i = initRank; i > finalRank; i--) {
+				for (int i = initRank - 1; i > finalRank; i--) {
 					System.out.println("Well i did");
 					if (board[initFile][i] != null) {
 						return false;
@@ -79,21 +79,19 @@ public class Queen extends Piece {
 			}
 
 		} else if (initRank == finalRank) {
-			
 			// vertically
 			if (initFile < finalFile) {
 				
-				for (int i = initFile; i < finalFile; i++) {
+				for (int i = initFile + 1; i < finalFile; i++) {
 					System.out.println("Well i did");
 					if (board[i][finalRank] != null) {
 						// there's a piece in the way
 						return false;
 					}
 				}
-			} else {
-				
-				for (int i = initFile; i > finalFile; i--) {
-					
+			} else //initFile > finalFile
+			{
+				for (int i = initFile - 1; i > finalFile; i--) {
 					if (board[i][finalRank] != null) {
 						return false;
 					}
