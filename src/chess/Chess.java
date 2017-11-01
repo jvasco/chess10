@@ -259,8 +259,6 @@ public class Chess {
 					}
 					chessBoard[f1][r1].hasMoved = true;
 				}
-
-					
 				//pawn promotion
 				if(chessBoard[f1][r1].getName().equals("wp") && f2 == 0){
 					if(move.length() == 7){
