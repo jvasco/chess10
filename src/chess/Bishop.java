@@ -10,6 +10,13 @@ public class Bishop extends Piece {
 
 	boolean isWhite;
 
+	/**
+	 * 
+	 * names the piece depending on if it is white or not
+	 * @param isWhite
+	 */
+	
+	
 	public Bishop(boolean isWhite) {
 
 		super(isWhite);
@@ -21,6 +28,13 @@ public class Bishop extends Piece {
 		hasMoved = true;
 	}
 
+	/**
+	 * 
+	 * checks if the move input by user is valid for a bishop
+	 * @param board, move
+	 * @return true or false
+	 */
+	
 	public boolean isValidMove(Piece[][] board, String move) {
 		int initFile = 8 - Character.getNumericValue(move.charAt(1));
 		int initRank = (int) Character.toLowerCase(move.charAt(0)) - (int) ('a');

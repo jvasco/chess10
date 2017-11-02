@@ -10,6 +10,13 @@ public class Rook extends Piece {
 
 	boolean isWhite;
 
+	/**
+	 * 
+	 * names the piece depending on if it is white or not
+	 * @param isWhite
+	 */
+	
+	
 	public Rook(boolean isWhite) {
 		super(isWhite);
 		if(isWhite){
@@ -20,6 +27,13 @@ public class Rook extends Piece {
 		hasMoved = false;
 	}
 
+	/**
+	 * 
+	 * checks if the move input by user is valid for a rook
+	 * @param board, move
+	 * @return true or false
+	 */
+	
 	public boolean isValidMove(Piece[][] board, String move) {
 		
 		int initFile = 8 - Character.getNumericValue(move.charAt(1));

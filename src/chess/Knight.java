@@ -8,6 +8,14 @@ package chess;
 
 public class Knight extends Piece {
 
+	
+	/**
+	 * 
+	 * names the piece depending on if it is white or not
+	 * @param isWhite
+	 */
+	
+	
 	public Knight(boolean isWhite) {
 		super(isWhite);
 		if (isWhite) {
@@ -18,6 +26,13 @@ public class Knight extends Piece {
 		hasMoved = true;
 	}
 
+	/**
+	 * 
+	 * checks if the move input by user is valid for a knight
+	 * @param board, move
+	 * @return true or false
+	 */
+	
 	@Override
 	public boolean isValidMove(Piece[][] board, String move) {
 		int initFile = 8 - Character.getNumericValue(move.charAt(1));

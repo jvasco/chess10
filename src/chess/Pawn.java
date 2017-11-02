@@ -7,6 +7,13 @@ package chess;
  */
 
 public class Pawn extends Piece {
+	
+	/**
+	 * 
+	 * names the piece depending on if it is white or not
+	 * @param isWhite
+	 */
+	
 	public Pawn(boolean isWhite) {
 		super(isWhite);
 		if (isWhite) {
@@ -21,6 +28,12 @@ public class Pawn extends Piece {
 	String color;
 	boolean firstMove = true;
 
+	/**
+	 * 
+	 * checks if the move input by user is valid for the given piece
+	 * @param board, move
+	 * @return true or false
+	 */
 
 	@Override
 	public boolean isValidMove(Piece[][] board, String move) {
